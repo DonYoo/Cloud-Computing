@@ -13,15 +13,6 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 
-/*AWS key
-
-Access Key ID:
-AKIAIIPB7TM3ET5TAMSQ
-Secret Access Key:
-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
-*/
-
-
 // successfully returns the number of trips taken in an hour per day
 public class Task1 {
 
