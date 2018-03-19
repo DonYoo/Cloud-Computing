@@ -3,35 +3,23 @@ import sys
 import datetime
 from operator import add
 from pyspark import SparkContext
-from conda._vendor.toolz.itertoolz import reduceby
-from babel.util import distinct
 
-
-if __name__ == "__main__":
-    
-    if len(sys.argv) != 3:
-        print("Usage: wordcount <file>", file=sys.stderr)
-        exit(-1)
-
-    sc = SparkContext(appName="Python3Taxi")
-    
-    
-    taxilines = sc.textFile(sys.argv[1], 1,  use_unicode=False)
-    
-    pointofInterest = sc.textFile(sys.argv[2], 1, use_unicode=False)
-    
+def main(inputTaxi, inputPoi, output):
+    if len(sys.argv) != 4:
+            print("Please supply taxi input, poi input, and output arguments", file=sys.stderr)
+            exit(-1)    
+            
     # remove lines if they don't have 16 values
     # also if values are empty.
-    # listline [3] = dropoff_datetime
-    # listline [8] = dropoff_longitude
-    # listline [9] = dropoff_latitude
-    
     def correctFormat(listline):
         if(len(listline) == 17):
-            time = listline[3]
-            longi = float(listline[8])
-            lati  = float(listline[9])
-            
+            try:
+                time = listline[3]
+                longi = float(listline[8].strip())
+                lati  = float(listline[9].strip())
+            except Exception:
+                return
+
             if longi and lati and time: #is not empty and
                 if longi !=0.0 and lati != 0.0: #if value is not 0.
                     return listline
@@ -44,10 +32,6 @@ if __name__ == "__main__":
         except:
             return False
 
-    # listplace[0] = latitude
-    # listplace[1] = longitude
-    # listplace[2] = name of POI
-    
     def correctPoint(listplace):
         lati  = listplace[0]
         longi = listplace[1]
@@ -59,7 +43,6 @@ if __name__ == "__main__":
         
     def getCellID(lat, lon):
         return (str(round(lat, 2)) + ' & ' +str(round(lon, 2)))
-    
     
     def setDate(value):
         dateform = value.split(' ')
@@ -90,24 +73,17 @@ if __name__ == "__main__":
     """
     make a format (grid-cell+date+hour of drop-offs)
     """
-    dateHourTaxi = taxilines.map(lambda x: x.decode("iso-8859-1").split(',')) \
+    dateHourTaxi = inputTaxi.map(lambda x: x.decode("iso-8859-1").split(',')) \
     .filter(correctFormat) \
     .map(lambda x: ( (getCellID(float(x[9]), float(x[8])), setDate(x[3]), setTime(x[3]) ), 1 ) ) \
-    .reduceByKey(add) \
-
-    #print ("datehour")
-    #print (dateHourTaxi.collect())
+    .reduceByKey(add)
 
     # get how many date on same place same time.
     # this is for comput average
     gridDateTaxi = dateHourTaxi.map(lambda x: ((getgrid(x), getTime(x)), 1) ) \
     .reduceByKey(add) \
     .collectAsMap()
-    
-    #print ("date")
-    #print (gridDateTaxi)
 
-    
     def lookforDate(value):
         numberofdrop = gridDateTaxi.get(value)
         if numberofdrop:
@@ -119,14 +95,7 @@ if __name__ == "__main__":
     .reduceByKey(add) \
     .map(lambda x: (x[0], x[1]/lookforDate(x[0])) ) \
     .collectAsMap()
-    
-    #/lookforDate(x[0])) ) \
-    
-    #print ("average")
-    #print (averageTaxi)
-    
-    
-    
+
     def lookforAverage(value):
         lookupv = (getgrid(value), getTime(value))
         numberofdrop = averageTaxi.get(lookupv)
@@ -142,7 +111,7 @@ if __name__ == "__main__":
     #print (top20)
 
     
-    placelist = pointofInterest.map(lambda x: x.decode("iso-8859-1").split('||')) \
+    placelist = inputPoi.map(lambda x: x.decode("iso-8859-1").split('||')) \
     .filter(correctPoint) \
     .map(lambda x: (getCellID(float(x[0]), float(x[1])), x[2]) ) \
     .reduceByKey(lambda a,b : a + ', ' +b) \
@@ -152,7 +121,7 @@ if __name__ == "__main__":
     def lookforplaces(value):
         lookupv = placelist.get(value)
         if lookupv:
-            return str(lookupv)
+            return str(lookupv.encode('utf-8'))
         return ''
 
     top20set = set()
@@ -163,10 +132,20 @@ if __name__ == "__main__":
         # add to set
         top20set.add(temptuple)
     
-    print ('top 20 list')
-    for eachtop in top20set:
-        print (eachtop)
+    # re-parallelize, and save to a text file (probably a better way to do this, but didn't want the hassle of using boto3 for s3 saving)
+    sc.parallelize(top20set).saveAsTextFile(output)
     
+
+if __name__ == "__main__":
+    # set up the spark context
+    sc = SparkContext(appName="PythonTaxiTask3")
+
+    # set the main arguments
+    inputTaxi = sc.textFile(sys.argv[1], 1,  use_unicode=False)
+    inputPoi  = sc.textFile(sys.argv[2], 1, use_unicode=False)
+    output    = sys.argv[3]
+
+    # kick off the main function
+    main(inputTaxi, inputPoi, output)
     
-    
-    
+   

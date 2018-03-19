@@ -4,16 +4,15 @@ import datetime
 from operator import add
 from pyspark import SparkContext
 
+# set up the spark context for the whole module
+sc = SparkContext(appName="PythonTaxiTask2")
 
-if __name__ == "__main__":
-    
-    if len(sys.argv) != 3:
-        print("Usage: wordcount <file>", file=sys.stderr)
-        exit(-1)
-
-    sc = SparkContext(appName="PythonTaxi")
-    taxilines = sc.textFile(sys.argv[1], 1,  use_unicode=False)
-    
+# define the main function and it's inputs
+def main(inputTaxis, inputPoi, output):  
+    # make sure we are getting the needed arguments
+    if len(sys.argv) != 4:
+        print("Please supply taxi input, poi input, and output arguments", file=sys.stderr)
+        exit(-1)    
     # error 
     # UnicodeEncodeError: 'cp949' codec can't encode character '\xe9' in position 1586: illegal multibyte sequence
     # UnicodeEncodeError: 'charmap' codec can't encode character '\u0302' in position 952: character maps to <undefined>
@@ -21,16 +20,7 @@ if __name__ == "__main__":
     # to fix the encode error,
     # use_unicode=False)
     # x.decode("iso-8859-1").split('||')) \
-    
-    pointofInterest = sc.textFile(sys.argv[2], 1,  use_unicode=False)
-    
-    #difference btw map and flatmap
-    # map : go each and change
-    # flatmap : make a new list
-    
-    
-    
-    
+        
     # filter out file within 8 ~ 11 am
     def morningTime(value):
         date = value.split(' ')
@@ -48,10 +38,13 @@ if __name__ == "__main__":
     # also if values are empty.
     def correctFormat(listline):
         if(len(listline) == 17):
-            time = listline[3]
-            longi = float(listline[8])
-            lati  = float(listline[9])
-            
+            try:
+                time = listline[3]
+                longi = float(listline[8])
+                lati  = float(listline[9])
+            except Exception:
+                return
+                
             if longi and lati and time: #is not empty and
                 if longi !=0.0 and lati != 0.0: #if value is not 0.
                     if morningTime(time):
@@ -77,8 +70,6 @@ if __name__ == "__main__":
         if isfloat(lati) and isfloat(longi) and nameplace:
             return listplace
             
-        
-    
     def getCellID(lat, lon):
         return (str(round(lat, 2)) + " & "+str(round(lon, 2)))
     
@@ -97,7 +88,7 @@ if __name__ == "__main__":
         
     # 1. filter out
     # 2. get only Cell ID and day
-    filteredTaxi = taxilines.map(lambda x: x.decode("iso-8859-1").split(',')) \
+    filteredTaxi = inputTaxis.map(lambda x: x.decode("iso-8859-1").split(',')) \
     .filter(correctFormat) \
     .map(lambda x: (getCellID(float(x[9]), float(x[8])), getDay(x[3]) ) ) \
   
@@ -105,7 +96,7 @@ if __name__ == "__main__":
     #1. map the input and get the cell ID
     #2. reduce function that add up the list of place if the location are the same
     #3. sort for fast lookup.
-    placelist = pointofInterest.map(lambda x: x.decode("iso-8859-1").split('||')) \
+    placelist = inputPoi.map(lambda x: x.decode("iso-8859-1").split('||')) \
     .filter(correctPoint) \
     .map(lambda x: (getCellID(float(x[0]), float(x[1])), x[2]) ) \
     .reduceByKey(lambda a,b : a + ', ' +b) \
@@ -127,41 +118,37 @@ if __name__ == "__main__":
     .map(lambda x: (x[1],x[0])) \
     .top(20)
     
-    print('\n')
-    
     def lookforplaces(value):
         lookupv = placelist.get(value)
         if lookupv:
-            return str(lookupv)
+            return str(lookupv.encode('utf-8'))
         return ''
     
-    
-    print ('Sunday location top 20')
-    #print (sundayTaxi)
-    sundaySet = set()
-
+    # generate the sunday sets
+    sundaySet = set()    
     for taxilist in sundayTaxi:
         # make a tuple of 3 item. get the name of point of interest
         temptuple = (taxilist[1], taxilist[0], lookforplaces(taxilist[1]))
         # add to set
         sundaySet.add(temptuple)
-    
-    for top20 in sundaySet:
-        print (top20)
-    
-    
-    print()
+
+    # generate the weekday seys
     weekSet = set()
     print ('Week Location top 20')
-    #print (weekTaxi)
     for taxilist in weekTaxi:
         temptuple = (taxilist[1], taxilist[0], lookforplaces(taxilist[1]))
         weekSet.add(temptuple)
-        
-    for top20 in weekSet:
-        print (top20)
 
+    # Write the results of the processing back to S3; using parallelize here, so we don't have to use Boto3 or other py library to write to s3
+    sc.parallelize(weekSet).saveAsTextFile(output+"weekDay")
+    sc.parallelize(sundaySet).saveAsTextFile(output+"sunday")
     
+if __name__ == "__main__":
 
+    inputTaxis = sc.textFile(sys.argv[1], 1, use_unicode=False)
+    inputPoi   = sc.textFile(sys.argv[2], 1, use_unicode=False)
+    output     = sys.argv[3]
+
+    main(inputTaxis, inputPoi, output)
     
     
