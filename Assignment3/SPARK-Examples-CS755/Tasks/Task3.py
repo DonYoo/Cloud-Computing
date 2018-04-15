@@ -125,8 +125,6 @@ if __name__ == "__main__":
     #print ("average")
     #print (averageTaxi)
     
-    
-    
     def lookforAverage(value):
         lookupv = (getgrid(value), getTime(value))
         numberofdrop = averageTaxi.get(lookupv)
@@ -141,7 +139,6 @@ if __name__ == "__main__":
     #print ("top20")
     #print (top20)
 
-    
     placelist = pointofInterest.map(lambda x: x.decode("iso-8859-1").split('||')) \
     .filter(correctPoint) \
     .map(lambda x: (getCellID(float(x[0]), float(x[1])), x[2]) ) \

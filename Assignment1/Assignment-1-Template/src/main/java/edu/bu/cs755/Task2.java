@@ -64,30 +64,12 @@ public class Task2 {
 		s3is = s3object.getObjectContent();
 		reader = new BufferedReader(new InputStreamReader(s3object.getObjectContent()));
 		streamlines = reader.lines().parallel();
-
 		
 		/**
 	     * Task 2
 	     */
 		
 	    System.out.println("\n**** TASK 2 ****");
-	}
-
-	
-	public void top20ranklist() throws IOException{
-
-		Map<String, Integer> donyoo = streamlines
-				.collect(Collectors.toMap(e ->getTheKey(e), v -> getTheValue(v), (oldValue, newValue) -> oldValue, LinkedHashMap::new) )
-				.entrySet().stream()
-				.sorted(Map.Entry.<String, Integer> comparingByValue(reverseOrder()))
-				.limit(20)		// limit top 20
-				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-		System.out.println("Top20 List: " + donyoo);
-
-		s3is.close();
-	    streamlines.close();
-		s3object.close();
-	    reader.close();
 	}
 
 	private String getTheKey(String e) {
@@ -120,5 +102,21 @@ public class Task2 {
 	                 //.collect(toList());
 		
 	    return resultvalue.intValue();
+	}
+	
+	public void top20ranklist() throws IOException{
+
+		Map<String, Integer> donyoo = streamlines
+				.collect(Collectors.toMap(e ->getTheKey(e), v -> getTheValue(v), (oldValue, newValue) -> oldValue, LinkedHashMap::new) )
+				.entrySet().stream()
+				.sorted(Map.Entry.<String, Integer> comparingByValue(reverseOrder()))
+				.limit(20)		// limit top 20
+				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+		System.out.println("Top20 List: " + donyoo);
+
+		s3is.close();
+	    streamlines.close();
+		s3object.close();
+	    reader.close();
 	}
 }

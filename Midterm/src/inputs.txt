@@ -1,0 +1,33 @@
+Order input
+orderID,customerID,productID,volume,price
+11,cust1,prod1,1,100
+22,cust2,prod6,1,600
+33,cust3,prod3,1,300
+44,cust4,prod4,2,800
+55,cust5,prod3,3,900
+66,cust6,prod6,6,3600
+77,cust1,prod1,3,300
+88,cust1,prod6,3,300
+99,cust1,prod8,2,400
+90,cust2,prod1,1,600
+80,cust6,prod3,6,3600
+70,cust3,prod8,1,300
+60,cust1,prod3,2,400
+
+Product input
+productID,name,price,weight,country,state,supplierID
+prod1,GENEVA,100,10,US,MA,supp1
+prod6,guitar,600,60,KR,Seoul,supp6
+prod3,computer,300,30,KR,Gyung,supp3
+prod4,VIENNA,400,40,US,MA,supp4
+prod8,computer,300,30,KR,Gyung,supp8
+prod9,guitar,600,60,US,TX,supp6
+
+Customer input
+customerID,name,email,country,state
+cust1,don,dyoo@semigear.com,US,MA
+cust2,ron,ron@gmail.com,KR,Seoul
+cust3,mom,mom@gmail.com,KR,Gyung
+cust4,ven,ven@semigear.com,US,MA
+cust5,dad,dad@gmail.com,KR,Gyung
+cust6,PJ,pj@trendmic.com,US,TX

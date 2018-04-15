@@ -1,0 +1,7 @@
+productID,name,price,weight,country,state,supplierID
+prod1,GENEVA,100,10,US,MA,supp1
+prod6,guitar,600,60,KR,Seoul,supp6
+prod3,computer,300,30,KR,Gyung,supp3
+prod4,VIENNA,400,40,US,MA,supp4
+prod8,computer,300,30,KR,Gyung,supp8
+prod9,guitar,600,60,US,TX,supp6

@@ -1,0 +1,55 @@
+number 2 toptenSoldProducts
+not valid input volume price
+('prod3', 12)
+('prod6', 10)
+('prod1', 5)
+('prod8', 3)
+('prod4', 2)
+
+number 3 toptenSoldCustomer
+not valid input volume price
+('cust6', 12)
+('cust1', 11)
+('cust5', 3)
+('cust2', 2)
+('cust3', 2)
+('cust4', 2)
+
+number 4 toptenSameSupplierCustomer
+not valid input productID price supplierID
+not valid input volume price
+('cust6 & supp6', 6)
+('cust6 & supp3', 6)
+('cust1 & supp1', 4)
+('cust1 & supp6', 3)
+('cust5 & supp3', 3)
+('cust1 & supp3', 2)
+('cust4 & supp4', 2)
+('cust1 & supp8', 2)
+('cust2 & supp1', 1)
+('cust3 & supp3', 1)
+
+number 5 toptenForeignProduct
+(('cust6', 'US'), ('KR',))
+
+number 7 similarCustomer
+not valid input volume price
+(('cust1', 'cust2'), 0.5)
+(('cust1', 'cust3'), 0.5)
+(('cust1', 'cust6'), 0.5)
+(('cust3', 'cust5'), 0.5)
+(('cust5', 'cust6'), 0.5)
+(('cust2', 'cust6'), 0.3333333333333333)
+(('cust3', 'cust6'), 0.3333333333333333)
+(('cust1', 'cust5'), 0.25)
+(('cust1', 'cust4'), 0.0)
+(('cust2', 'cust3'), 0.0)
+
+number 8 toptenproductPair
+not valid input volume price
+(('prod1', 'prod6'), 2)
+(('prod3', 'prod6'), 2)
+(('prod3', 'prod8'), 2)
+(('prod1', 'prod3'), 1)
+(('prod1', 'prod8'), 1)
+(('prod6', 'prod8'), 1)
