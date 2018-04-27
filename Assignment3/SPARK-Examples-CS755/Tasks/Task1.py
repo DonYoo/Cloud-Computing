@@ -3,7 +3,19 @@ import sys
 from operator import add
 from pyspark import SparkContext
 
+    
+#difference btw map and flatmap
+# map : go each and change
+# flatmap : make a new list
 
+# remove lines if they don't have 16 values
+# also if medallion or driver ID is empty.
+def correctFormat(listline):
+    if(len(listline) == 17):
+        if listline[0] and listline[1]:
+            return listline
+    
+    
 if __name__ == "__main__":
     
     if len(sys.argv) != 2:
@@ -12,20 +24,7 @@ if __name__ == "__main__":
 
     sc = SparkContext(appName="PythonTaxi")
     taxilines = sc.textFile(sys.argv[1], 1)
-    
-    #difference btw map and flatmap
-    # map : go each and change
-    # flatmap : make a new list
-    
 
-    # remove lines if they don't have 16 values
-    # also if medallion or driver ID is empty.
-    def correctFormat(listline):
-        if(len(listline) == 17):
-            if listline[0] and listline[1]:
-                return listline
-    
-    
     # 1. filter out
     # 2. get only taxi ID and driver ID
     # 3. distinct items if taxi ID and driver ID are same
