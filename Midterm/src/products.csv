@@ -1,7 +1,101 @@
 productID,name,price,weight,country,state,supplierID
-prod1,GENEVA,100,10,US,MA,supp1
-prod6,guitar,600,60,KR,Seoul,supp6
-prod3,computer,300,30,KR,Gyung,supp3
-prod4,VIENNA,400,40,US,MA,supp4
-prod8,computer,300,30,KR,Gyung,supp8
-prod9,guitar,600,60,US,TX,supp6
+1,Hooker's Matted Lichen,91.7,59.5,US,MA,88
+2,Oblongfruit Serviceberry,40.4,65.2,PL,,57
+3,Rocky Mountain Whitethroat,72.9,81.5,ID,,36
+4,Rattlesnakeweed,17.3,18.9,PL,,73
+5,Pubescent Sedge,96.9,174.6,US,MA,6
+6,Trans-pecos Indian Parsley,75.3,69.1,UA,,91
+7,Woolly Sedge,27.5,152.4,US,MA,27
+8,Rock Monardella,95.7,10.0,US,MA,92
+9,Wright's Stonecrop,33.9,37.3,JP,,52
+10,Map Lichen,62.8,93.2,ID,,30
+11,Epiphytic Orange Lichen,19.9,83.6,GR,,28
+12,Rosy Pussytoes,42.8,178.3,SY,,53
+13,Chinese Black Olive,89.3,139.4,US,MA,28
+14,Powell's Saltweed,93.3,72.5,US,TX,85
+15,Roundseed St. Johnswort,1.9,170.5,PH,,26
+16,Velvet Bean,73.7,45.5,SE,Västra Götaland,27
+17,Woolyspike Balsamscale,78.7,155.0,CO,,89
+18,Lindenleaf Rosemallow,24.7,82.4,BR,,65
+19,Dalibarda,7.3,104.6,US,TX,63
+20,Graham's Pricklypear,55.8,37.2,LV,,1
+21,Smokey Mariposa,10.1,72.1,US,TX,49
+22,Slenderleaf Skyrocket,11.6,75.2,US,TX,51
+23,Rice Button Aster,61.4,5.3,ID,,29
+24,Southern Mountain Buckwheat,22.8,73.6,JP,,98
+25,Apache Beggarticks,81.7,114.6,ID,,11
+26,Spiked Muhly,23.2,152.9,PL,,51
+27,Hooker's Silene,39.8,107.5,ZM,,31
+28,Fernleaf False Candytuft,46.5,58.1,HR,,8
+29,Rough Hedgenettle,79.8,83.3,RU,,31
+30,Silvery Sedge,42.6,53.3,PH,,6
+31,Woodland Hogwood,31.4,150.6,BR,,5
+32,Sickleweed,44.7,148.0,KW,,10
+33,Longtom Filmy Fern,1.8,17.9,US,TX,13
+34,Trachybryum Moss,80.3,91.6,ID,,91
+35,Arctic Raspberry,78.4,156.9,US,TX,41
+36,Powell's Amaranth,36.5,70.2,ID,,79
+37,Squarrose Knapweed,1.4,29.7,ID,,29
+38,Canela,34.9,66.6,BR,,93
+39,Rock Rosemary,74.9,116.3,MG,,84
+40,Whitewoolly Twintip,78.9,110.1,ZA,,89
+41,Bastardsage,68.8,30.7,US,California,40
+42,Bryum Moss,84.0,157.0,PH,,25
+43,Hawthorn,60.6,172.1,ID,,48
+44,Quayle's Ragwort,27.2,135.4,US,TX,73
+45,Crabgrass,35.8,160.3,PL,,65
+46,Caribbean Swallow-wort,93.5,103.8,CO,,3
+47,Antilles Velvetshrub,22.8,54.7,ET,,55
+48,Rannoch-rush,57.0,129.1,TH,,6
+49,Gray Chickensage,95.1,134.4,SV,,85
+50,Drummond's Wart Lichen,65.3,140.9,ZA,,8
+51,Chondrilla,40.7,23.0,ID,,13
+52,Small-leaf Bittercress,18.6,8.8,AL,,6
+53,Chilean Nightshade,90.2,82.6,RE,Réunion,65
+54,Purple Fleabane,24.1,162.5,CO,,5
+55,Mayflower,20.4,14.1,LU,,83
+56,Buckbrush,48.5,51.7,CA,Manitoba,14
+57,Rainbow Iris,45.9,135.6,RU,,73
+58,Rough Jointfir,38.2,179.1,ID,,90
+59,Tarweed,73.9,60.6,ID,,32
+60,Osmunda,23.0,63.0,RS,,30
+61,Parish's Needlegrass,91.7,62.6,US,TX,12
+62,Lichenostigma Lichen,75.3,92.0,US,TX,79
+63,Pink Honeysuckle,78.8,166.1,GR,,54
+64,Wart Lichen,28.6,51.6,US,MA,97
+65,Asian Forget-me-not,67.8,23.0,US,MA,42
+66,Douglas's Catchfly,40.3,133.7,PE,,4
+67,New Mexico Beardtongue,25.9,12.8,RU,,75
+68,Bearded Milkvetch,39.4,145.4,BG,,48
+69,Woody Rockcress,58.1,95.5,RU,,95
+70,Harrisella,91.4,115.4,US,MA,10
+71,Wildrye,65.4,76.3,FR,Île-de-France,68
+72,Spinach,2.3,7.9,JP,,50
+73,Glandular Senna,16.4,125.6,AM,,56
+74,Sphagnum,22.2,78.7,PH,,8
+75,Blackseed Speargrass,90.6,188.3,MX,Oaxaca,77
+76,Henderson's Angelica,85.2,31.2,EG,,34
+77,Amberboa,82.5,194.5,FR,Île-de-France,78
+78,Field Sagewort,4.4,139.5,US,MA,75
+79,Hoary Blackfoot,82.2,110.1,EE,,97
+80,Shortstalk Forchhammeria,89.2,175.2,US,MA,82
+81,Paraguayan Windmill Grass,39.3,186.7,US,MA,30
+82,Hookedspur Violet,25.8,18.9,DO,,58
+83,Tansyleaf Evening Primrose,27.2,34.7,TN,,45
+84,Alpine Hymenopappus,45.1,165.7,US,Ohio,3
+85,Rim Lichen,31.5,67.5,PH,,88
+86,Bittercress,67.0,173.1,FR,Haute-Normandie,73
+87,Lemon Lichen,3.7,19.4,US,MA,35
+88,Schaffner's Hairsedge,7.9,50.0,NP,,41
+89,Sudetic Lousewort,6.2,66.5,US,MA,100
+90,Broadleaf Tickseed,82.2,167.5,ID,,85
+91,Colocasia,23.8,146.7,GR,,41
+92,Rockjasmine Buckwheat,63.8,188.7,US,MA,14
+93,Mexican Clover,49.9,63.7,US,MA,68
+94,Firespike,53.3,54.2,US,MA,40
+95,Different-nerve Sedge,60.0,11.6,PL,,48
+96,Kirschsteiniothelia Lichen,85.8,115.9,CZ,,11
+97,Turpentine Bush,47.9,95.4,MA,,76
+98,Farr's Willow,18.6,172.3,BO,,77
+99,Texas Umbrellawort,80.2,145.4,MX,Veracruz Llave,95
+100,Knotweed,36.2,54.5,ID,,88
